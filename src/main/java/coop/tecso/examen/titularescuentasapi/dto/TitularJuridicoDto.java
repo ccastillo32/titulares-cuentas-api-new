@@ -28,6 +28,7 @@ public class TitularJuridicoDto extends TitularDto {
         setCuit(entity.getCuit());
         razonSocial = entity.getRazonSocial();
         anioFundacion = entity.getAnioFundacion();
+        setTipo(TitularDto.JURIDICO);
     }
 
     public TitularJuridico toEntity() {

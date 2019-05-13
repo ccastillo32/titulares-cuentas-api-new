@@ -28,6 +28,7 @@ public class TitularFisicoDto extends TitularDto {
         dni = entity.getDni();
         nombre = entity.getNombre();
         apellido = entity.getApellido();
+        setTipo(TitularDto.FISICO);
     }
     
     public TitularFisico toEntity() {

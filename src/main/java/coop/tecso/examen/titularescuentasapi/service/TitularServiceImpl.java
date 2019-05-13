@@ -84,8 +84,7 @@ public class TitularServiceImpl implements TitularService {
                 throw new CampoIncorrectoException(String.format("El titular con CUIT %s no existe", cuit));
             }
             
-            entity.setHabilitado(false);
-            titularDao.save(entity);
+            titularDao.deleteById(cuit);
             inhabilitado = true;
             
         } catch(CampoIncorrectoException exp) {
