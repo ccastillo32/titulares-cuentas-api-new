@@ -84,7 +84,8 @@ public class TitularServiceImpl implements TitularService {
                 throw new CampoIncorrectoException(String.format("El titular con CUIT %s no existe", cuit));
             }
             
-            titularDao.deleteById(cuit);
+            entity.setHabilitado(false);
+            titularDao.save(entity);
             inhabilitado = true;
             
         } catch(CampoIncorrectoException exp) {
@@ -109,8 +110,10 @@ public class TitularServiceImpl implements TitularService {
             }
             
             Titular titular = titularDao.findById(titularFisico.getCuit()).orElse(null);
-            if(titular != null) {
+            if(titular != null && titular.isHabilitado()) {
                 throw new CampoIncorrectoException("Ya existe un titular registrado con el CUIT " + titular.getCuit());
+            } else if(titular != null && !titular.isHabilitado()) {
+                throw new CampoIncorrectoException("El CUIT " + titular.getCuit() + " se encuentra registrado para titular que está inactivo");
             }
             
             TitularFisico entity = titularFisico.toEntity();
@@ -138,8 +141,10 @@ public class TitularServiceImpl implements TitularService {
             }
             
             Titular titular = titularDao.findById(titularJuridico.getCuit()).orElse(null);
-            if(titular != null) {
+            if(titular != null && titular.isHabilitado()) {
                 throw new CampoIncorrectoException("Ya existe un titular registrado con el CUIT " + titular.getCuit());
+            } else if(titular != null && !titular.isHabilitado()) {
+                throw new CampoIncorrectoException("El CUIT " + titular.getCuit() + " se encuentra registrado para titular que está inactivo");
             }
 
             TitularJuridico entity = titularJuridico.toEntity();
