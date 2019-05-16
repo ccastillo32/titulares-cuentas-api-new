@@ -53,7 +53,7 @@ public class TitularServiceImpl implements TitularService {
         TitularDto dto = null;
         try {
             String cuit = Conversor.convertirACuitConGuiones(cuitSinGuiones);
-            Titular entity = titularDao.findById(cuit).orElse(null);
+            Titular entity = titularDao.findByCuitAndHabilitado(cuit, true);
             
             if(entity == null || !entity.isHabilitado()) {
                 throw new CampoIncorrectoException(String.format("El titular con CUIT %s no existe", cuit));
@@ -78,7 +78,7 @@ public class TitularServiceImpl implements TitularService {
         boolean inhabilitado = false;
         try {
             String cuit = Conversor.convertirACuitConGuiones(cuitSinGuiones);
-            Titular entity = titularDao.findById(cuit).orElse(null);
+            Titular entity = titularDao.findByCuitAndHabilitado(cuit, true); 
             
             if(entity == null || !entity.isHabilitado()) {
                 throw new CampoIncorrectoException(String.format("El titular con CUIT %s no existe", cuit));
@@ -109,14 +109,12 @@ public class TitularServiceImpl implements TitularService {
                 throw new CampoIncorrectoException(validaciones.get(0));
             }
             
-            Titular titular = titularDao.findById(titularFisico.getCuit()).orElse(null);
+            Titular titular = titularDao.findByCuitAndHabilitado(titularFisico.getCuit(), true);
             if(titular != null && titular.isHabilitado()) {
                 throw new CampoIncorrectoException("Ya existe un titular registrado con el CUIT " + titular.getCuit());
-            } else if(titular != null && !titular.isHabilitado()) {
-                throw new CampoIncorrectoException("El CUIT " + titular.getCuit() + " se encuentra registrado para titular que está inactivo");
-            }
+            } 
             
-            TitularFisico entity = titularFisico.toEntity();
+            Titular entity = titularFisico.toEntity();
             entity.setTipo( getTipoTitularFisico() );
             entity.setHabilitado(true);
             titularDao.save(entity);
@@ -140,12 +138,10 @@ public class TitularServiceImpl implements TitularService {
                 throw new CampoIncorrectoException(validaciones.get(0));
             }
             
-            Titular titular = titularDao.findById(titularJuridico.getCuit()).orElse(null);
+            Titular titular = titularDao.findByCuitAndHabilitado(titularJuridico.getCuit(), true);
             if(titular != null && titular.isHabilitado()) {
                 throw new CampoIncorrectoException("Ya existe un titular registrado con el CUIT " + titular.getCuit());
-            } else if(titular != null && !titular.isHabilitado()) {
-                throw new CampoIncorrectoException("El CUIT " + titular.getCuit() + " se encuentra registrado para titular que está inactivo");
-            }
+            } 
 
             TitularJuridico entity = titularJuridico.toEntity();
             entity.setTipo( getTipoTitularJuridico() );
@@ -171,7 +167,7 @@ public class TitularServiceImpl implements TitularService {
                 throw new CampoIncorrectoException(validaciones.get(0));
             }
             
-            Titular titular = titularDao.findById(titularFisico.getCuit()).orElse(null);
+            Titular titular = titularDao.findByCuitAndHabilitado(titularFisico.getCuit(), true); 
             if(titular == null) {
                 throw new CampoIncorrectoException("No existe un titular registrado con el CUIT " + titularFisico.getCuit());
             }
@@ -201,7 +197,7 @@ public class TitularServiceImpl implements TitularService {
                 throw new CampoIncorrectoException(validaciones.get(0));
             }
             
-            Titular titular = titularDao.findById(titularJuridico.getCuit()).orElse(null);
+            Titular titular = titularDao.findByCuitAndHabilitado(titularJuridico.getCuit(), true);
             if(titular == null) {
                 throw new CampoIncorrectoException("No existe un titular registrado con el CUIT " + titularJuridico.getCuit());
             }

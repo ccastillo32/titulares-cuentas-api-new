@@ -17,5 +17,6 @@ import coop.tecso.examen.titularescuentasapi.model.Titular;
 public interface TitularRepository extends JpaRepository<Titular, String> {
 
     public List<Titular> findByHabilitado(boolean habilitado);
+    public Titular findByCuitAndHabilitado(String cuit, boolean habilitado);
     
 }

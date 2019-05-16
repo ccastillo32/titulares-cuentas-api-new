@@ -15,30 +15,33 @@ CREATE TABLE tipo_titular (
 -- Titular (Tabla común)
 
 CREATE TABLE titular (
+	id INTEGER NOT NULL AUTO_INCREMENT,
 	cuit VARCHAR(13) NOT NULL,
 	tipo INTEGER (3) NOT NULL,
 	habilitado BOOLEAN, -- Para activar o inactivar
-	PRIMARY KEY (cuit),
+	PRIMARY KEY (id),
 	FOREIGN KEY (tipo) REFERENCES tipo_titular (id)
 );
 
 -- Titular físico
 
 CREATE TABLE titular_fisico (
-	cuit VARCHAR(13) NOT NULL,
+	id INTEGER NOT NULL AUTO_INCREMENT,
 	dni VARCHAR(10) NOT NULL,
 	nombre VARCHAR(80) NOT NULL,
 	apellido VARCHAR(250) NOT NULL,
-	PRIMARY KEY (cuit),
-	FOREIGN KEY (cuit) REFERENCES titular (cuit)
+	titular_id INTEGER NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (id) REFERENCES titular (id)
 );
 
 -- Titular jurídico
 
 CREATE TABLE titular_juridico (
-	cuit VARCHAR(13) NOT NULL,
+	id INTEGER NOT NULL AUTO_INCREMENT,
 	razon_social VARCHAR(100) NOT NULL,
 	anio_fundacion INTEGER(5) NOT NULL,
-	PRIMARY KEY (cuit),
-	FOREIGN KEY (cuit) REFERENCES titular (cuit)
+	titular_id INTEGER NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (id) REFERENCES titular (id)
 );

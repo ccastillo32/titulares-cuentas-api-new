@@ -2,6 +2,7 @@ package coop.tecso.examen.titularescuentasapi.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TITULAR_JURIDICO")
+@PrimaryKeyJoinColumn(name = "titular_id")
 public class TitularJuridico extends Titular {
 
     private static final long serialVersionUID = 1L;
