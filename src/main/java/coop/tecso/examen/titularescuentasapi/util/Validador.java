@@ -1,6 +1,8 @@
 package coop.tecso.examen.titularescuentasapi.util;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,12 +46,20 @@ public class Validador {
         
         if(esVacio(nombres)) {
             validaciones.add("El nombre del titular es obligatorio");
+        } else if(!tieneSoloLetrasYEspacios(nombres)) {
+            validaciones.add("El nombre del titular debe tener solo letras y espacios");
+        } else if(nombres.length() > 80) {
+            validaciones.add("El nombre del titular debe ser de máximo 80 caracteres");
         }
         
         // validar apellidos
         
         if(esVacio(apellidos)) {
             validaciones.add("El apellido del titular es obligatorio");
+        } else if(!tieneSoloLetrasYEspacios(nombres)) {
+            validaciones.add("El apellido del titular debe tener solo letras y espacios");
+        } else if(apellidos.length() > 250) {
+            validaciones.add("El apellido del titular debe ser de máximo 250 caracteres");
         }
 
         return validaciones;
@@ -73,6 +83,8 @@ public class Validador {
         
         if(esVacio(razonSocial)) {
             validaciones.add("El campo razón social es obligatorio");
+        } else if(razonSocial.length() > 100) {
+            validaciones.add("El campo razón social debe ser de máximo 100 caracteres");
         }
         
         // validar anio fundacion
@@ -81,6 +93,8 @@ public class Validador {
             validaciones.add("El nombre del titular es obligatorio");
         } else if(anioFundacion.intValue() == 0) {
             validaciones.add("El campo año de fundacion no puede ser cero");
+        } else if(esMayorAlAnioActual(anioFundacion.intValue())) {
+            validaciones.add("El año de fundación no puede ser mayor al año actual");
         }
         
         return validaciones;
@@ -110,6 +124,20 @@ public class Validador {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(valor);
         return matcher.matches();
+    }
+    
+    public static boolean tieneSoloLetrasYEspacios(String valor) {
+        String regex = "^[\\p{L} .'-]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(valor);
+        return matcher.matches();
+    }
+    
+    public static boolean esMayorAlAnioActual(int valor) {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return valor > calendar.get(Calendar.YEAR);
     }
 
 }
