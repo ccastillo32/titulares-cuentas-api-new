@@ -13,6 +13,9 @@ Como Bonus, se implementó para el API REST, autenticación con Spring Security,
 Dicho proyecto se encuenta en el siguiente repositorio:
 https://github.com/ccastillo32/titulares-cuentas-api-con-seguridad
 
+Las configuraciones del repositorio anterior, son las mismas que para este proyecto.
+Es decir, la misma base de datos.
+
 Y el front-end correspondiente:
 https://github.com/ccastillo32/titulares-cuentas-frontend-con-seguridad
 
