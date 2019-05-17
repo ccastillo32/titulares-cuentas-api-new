@@ -53,6 +53,12 @@ Pero esto no aplica para la razón social. Ya que puede tener caracteres especia
 - La aplicación valida que no se creen dos titulaes con el mismo CUIT, sin embargo, Los titulares, al momento de eliminar, no se elimina realmente, se inhabilitan.
 Asi que, el CUIT que se inhabilitó queda disponible para un nuevo titular.
 
+### Observación en cuanto a código
+
+Desde un inicio se tuvo en cuenta aprovechar el uso de la herencia de JPA, para poder grabar un titular sin preocuparnos por los detalles de si es un titular físico o jurídico,
+Para ello se creó la clase padre Titular.
+Apoyada también por la anotación @Inheritance(strategy = InheritanceType.JOINED)
+
 ### Observación final
 
 Se nombró el proyecto como titulares-cuentas-api-new, ya que se refactorizó en este nuevo proyecto.
